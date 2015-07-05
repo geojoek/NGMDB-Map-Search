@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>NGMDB query tool</title>
+    
+    <!-- CSS for Leafet, Leaflet Draw -->
+	
+	<!-- These not needed yet. Don't hog browser memory by loading them
+	<link rel="stylesheet" href="https://rawgit.com/Leaflet/Leaflet.draw/master/dist/leaflet.draw.css">
+	<link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+	-->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="css/main.css">
+    
+    <!-- Get JS libraries -->
+
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	
+	
+	<!-- Don't need these yet
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="https://rawgit.com(data/Leaflet/Leaflet.draw/master/dist/leaflet.draw-src.js"></script>
+	<script src="js/leaflet.awesome-markers.js"></script>
+	-->
+</head>
+
+<body>
+ 	
+ 	<div id="map"></div>	
+
+	<script>
+	//initialize the map
+	var map = L.map('map').setView([42.358771, -71.859723], 10);
+	
+	// load the tile layer
+	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+	  {
+		attribution: 'NGMDB query tool by <a href="http://mgs.geo.umass.edu">Mass. Geologic Survey.</a> Background map data copyright <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    	minZoom: 6,
+	  	maxZoom: 16
+    }).addTo(map);
+    
+    //load GeoJSON from external file
+    $.getJSON("geojson/massquads.geojson",function(data){
+    	// add GeoJSON layer to the map once the file is loaded
+    	L.geoJson(data).addTo(map);
+  });
+    
+    </script>
+    
+</body>
+</html>
